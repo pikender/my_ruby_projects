@@ -1,0 +1,22 @@
+1. Creating a Skeleton Sinatra App (myproject)
+mkdir -p myproject myproject/views myproject/public myproject/public/javascript myproject/public/css myproject/public/images
+touch myproject/app.rb myproject/config.ru myproject/Gemfile
+
+2. Edit Gemfile as
+source 'http://rubygems.org'
+
+gem "sinatra"
+gem "haml"
+gem "geminabox"
+
+3. Edit config.ru as
+require "rubygems"
+require "geminabox"
+
+Geminabox.data = "/var/geminabox-data" # …or wherever
+run Geminabox
+
+4. Run application
+rackup ## You should run this command from the project path i.e. cd myproject
+
+5. Local Gem Server will start at http://localhost:9292/
