@@ -1,0 +1,57 @@
+Rover
+  knows
+    x
+    y
+    current_direction
+  does
+    move
+  
+PlateauGrid
+  consists of cells x and y
+  min_x
+  min_y
+  max_x
+  max_y 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+A class represents a collection of similar objects.An object is a person,place,thing,event, or concept that is relevant to the system at hand.For example,in a university system, classes would represent students,tenured professors,and seminars.The name of the class appears across the top of a CRC card and is typically a singular noun or singular noun phrase,such as Student,Professor,and Seminar.You use singular names because each class represents a generalized version of a singular object.Although there may be the student JohnO’Brien,you would model the class Student.The information about a student describes a single person,not a group of people.Therefore,it makes sense to use the name Student and not Students.Class names should also be simple.For example,which name is better:Student or Person who takes seminars?
+
+A responsibility is any thing that a class knows or does.For example,students have names, addresses,and phone numbers.These are the things a student knows.Students also enroll in seminars,drop seminars,and request transcripts.These are the things a student does.The things a class knows and does constitute its responsibilities.
+
+Important:A class is able to change the values of the things it knows,but it is unable to change the values of what other classes know.Sometimes a class has a responsibility to fulfill,but not have enough information to do it.
+
+For example,as you see in Figure 3 students enroll in seminars.To do this,a student needs to know if a spot is available in the seminar and,if so,he then needs to be added to the seminar.However,students only have information about themselves(their names and so forth),and not about seminars.What the student needs to do is collaborate/interact with the card labeled Seminar to signup for a seminar.Therefore,Seminar is included in the list of collaborators of Student.
+
+Collaboration takes one of two forms:A request for information or a request to do something.For example,the card Student requests an indication from the card Seminar whether a space is available,a request for information.Student then requests to be added to the Seminar,a request to do something.Another way to perform this logic,however,would have been to have Student simply request Seminar to enroll himself into itself.Then have Seminar do the work of determining if a seat is available and,if so,then enrolling the
+student and,if not,then informing the student that he was not enrolled.
+
+= Find classes => Finding classes is fundamentally an analysis task because it deals with identifying the building blocks for your application.A good rule of thumb is that you should look for the three-to-five main classes right away,such as Student, Seminar,and Professor in Figure4.I will sometimes include UI classes such as Transcript and Student Schedule,both are reports,although others will stick to just entity classes.Also,I'll sometimes include cards representing actors when my stakeholders are struggling with the concept of a student in the real world(theactor) versus the student in the system(the entity).
+= Find responsibilities => You should ask yourself what a class does as well as what information you wish to maintain about it.You will often identify a responsibility for a class to fulfill a collaboration with another class.
+= Define collaborators => A class of ten does not have sufficient information to fulfill its responsibilities.Therefore,it must collaborate(work) with other classes to get the job done.Collaboration will be in one of two forms:a request for information or a request to perform a task.To identify the collaborators of a class for each responsibility ask yourself "does the class have the ability to fulfill this responsibility?".If not then look for a class that either has the ability to fulfill the missing functionality or the class which should fulfill it.In doing so you'll often discover the need for new responsibilities in other classes and may be even the need for a new class or two.
+

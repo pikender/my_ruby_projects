@@ -1,0 +1,581 @@
+http://nareshkorrapati.blogspot.com/2011/09/mars-rover-problem.html
+
+The MARS ROVER problem
+Posted by Abhinaba Basu on October 1, 2009 in Java, Thoughtworks
+
+The problem is stated below:
+
+    “A squad of robotic rovers are to be landed by NASA on a plateau on Mars.
+    This plateau, which is curiously rectangular, must be navigated by the
+    rovers so that their on-board cameras can get a complete view of the
+    surrounding terrain to send back to Earth.
+
+    A rover’s position and location is represented by a combination of x and y
+    co-ordinates and a letter representing one of the four cardinal compass
+    points. The plateau is divided up into a grid to simplify navigation. An
+    example position might be 0, 0, N, which means the rover is in the bottom
+    left corner and facing North.
+
+    In order to control a rover, NASA sends a simple string of letters. The
+    possible letters are ‘L’, ‘R’ and ‘M’. ‘L’ and ‘R’ makes the rover spin 90
+    degrees left or right respectively, without moving from its current spot.
+    ‘M’ means move forward one grid point, and maintain the same heading.
+
+    Assume that the square directly North from (x, y) is (x, y+1).
+
+    INPUT:
+    The first line of input is the upper-right coordinates of the plateau, the
+    lower-left coordinates are assumed to be 0,0.
+
+    The rest of the input is information pertaining to the rovers that have
+    been deployed. Each rover has two lines of input. The first line gives the
+    rover’s position, and the second line is a series of instructions telling
+    the rover how to explore the plateau.
+
+    The position is made up of two integers and a letter separated by spaces,
+    corresponding to the x and y co-ordinates and the rover’s orientation.
+
+    Each rover will be finished sequentially, which means that the second rover
+    won’t start to move until the first one has finished moving.
+
+    OUTPUT
+    The output for each rover should be its final co-ordinates and heading.
+
+    INPUT AND OUTPUT
+
+    Test Input:
+    5 5
+    1 2 N
+    LMLMLMLMM
+    3 3 E
+    MMRMMRMRRM
+
+    Expected Output:
+    1 3 N
+    5 1 E
+    ==========
+
+//Rover.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication2
+{
+    /// 
+    /// 
+    /// 
+    public class Rover
+    {
+
+        private Location position = new Location();
+
+        /// 
+        /// GPS - Property of Rover which stores its location (coordinates and direction).
+        /// 
+        internal Location GPS
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+       // public Location Position { get; set; }
+        
+        
+        public Rover()
+        {
+            GPS.Coordinates.X = 10;
+            GPS.Coordinates.Y = 10;
+            GPS.Direction = DirectionManager.GetDirection("South");
+            
+        }
+
+        private void Move()
+        {
+
+           GPS.Direction.Move(this);
+          
+        }
+
+        private void TurnLeft()
+        {
+
+           GPS.Direction.TurnLeft(this);                  
+            
+        }
+
+        private void TurnRight()
+        {
+
+           GPS.Direction.TurnRight(this);
+            
+        }
+
+        /// 
+        /// An actuator is a mechanical device for moving or controlling a mechanism or system.
+        /// 
+        /// 
+        public void Actuator(string input)
+        {
+           
+            ShowLocation();
+            OperateRover(input);
+            ShowLocation();
+
+        }
+
+        private void OperateRover(string mover)
+        {
+            //MMMMRMMMM
+            for (int i = 0; i < mover.Length; i++)
+            {
+                if (mover[i].Equals('M'))
+                {
+                    //Console.ForegroundColor = ConsoleColor.White;
+                    this.Move();
+                   // ShowLocation();
+                    
+
+                }
+                else if (mover[i].Equals('L'))
+                {
+
+                    
+                    this.TurnLeft();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+
+                }
+                else if (mover[i].Equals('R'))
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    this.TurnRight();
+                 
+                }
+
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        private void ShowLocation()
+        {
+            
+            Console.SetCursorPosition(GPS.Coordinates.X, GPS.Coordinates.Y);
+            Console.WriteLine("{0},{1}  {2}", GPS.Coordinates.X, GPS.Coordinates.Y, GPS.Direction.GetType().Name);
+            //Console.Write(".");
+        }
+
+
+
+
+    }
+}
+
+
+
+
+
+
+===========================
+//Location.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication2
+{
+   /// 
+   /// Location contains the Co-ordinates and Direction of a Rover
+   /// 
+    class Location
+    {
+
+        public Location()
+        {
+            Coordinates = new Coordinate();
+            Direction = DirectionManager.GetDirection("North");
+        }
+
+        public Location(int x, int y, IDirection d)
+        {
+            Coordinates.X = x;
+            Coordinates.Y = y;
+            Direction = d;
+        }
+
+        //Coordinate Coordinates = new Coordinate();
+
+        public Coordinate Coordinates { get; set; }
+
+        public IDirection Direction { get; set; }
+
+        public void ReduceX()
+        {
+            --Coordinates.X;  
+        }
+
+        public void ReduceY()
+        {
+            --Coordinates.Y;
+        }
+
+        public void IncreaseX()
+        {
+            ++Coordinates.X;
+        }
+
+        public void IncreaseY()
+        {
+            ++Coordinates.Y;
+        }
+
+        public void SetDirection(IDirection d)
+        {
+            this.Direction = d;
+        }
+    }
+}
+
+===================================
+
+
+
+//Directions.cs
+There are four directions. They implement the IDirection interface
+-------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication2
+{
+     interface IDirection
+    {
+          void Move(Rover r);
+          void TurnLeft(Rover r);
+          void TurnRight(Rover r);
+         
+      
+        
+    }
+
+     class North : IDirection
+    {
+        
+         public North()
+         {
+         }
+
+         public void Move(Rover r)
+         {
+             r.GPS.IncreaseY();
+             
+         }
+
+         public void TurnLeft(Rover r)
+         {
+             r.GPS.Direction = DirectionManager.GetDirection("West");
+         }
+
+         public void TurnRight(Rover r )
+         {
+             r.GPS.Direction = DirectionManager.GetDirection("East");
+         }
+
+       
+
+        
+    }
+
+     class South : IDirection
+     {
+         public South()
+         {
+         }
+
+        
+
+         public void Move(Rover r)
+         {
+             r.GPS.ReduceY();
+
+         }
+         public void  TurnLeft(Rover r)
+         {
+              r.GPS.Direction = DirectionManager.GetDirection("East");
+         }
+
+         public void TurnRight(Rover r)
+         {
+              r.GPS.Direction = DirectionManager.GetDirection("West");
+         }
+
+
+     }
+
+      class East : IDirection
+    {
+         public East()
+         {
+         }
+
+         
+
+         public void Move(Rover r)
+         {
+             r.GPS.IncreaseX();
+            
+         }
+
+
+         public void TurnLeft(Rover r)
+         {
+              r.GPS.Direction = DirectionManager.GetDirection("North");
+         }
+
+         public void TurnRight(Rover r)
+         {
+              r.GPS.Direction = DirectionManager.GetDirection("South");
+         }
+        
+    }
+
+     class West : IDirection
+    {
+         public West()
+         {
+         }
+
+       
+
+         public void Move(Rover r)
+         {
+             
+             r.GPS.ReduceX();
+            
+         }
+
+         public void TurnLeft(Rover r)
+         {
+              r.GPS.Direction =  DirectionManager.GetDirection("South");
+         }
+
+         public void TurnRight(Rover r)
+         {
+              r.GPS.Direction =  DirectionManager.GetDirection("North");
+         }
+
+        
+    }
+
+}
+
+
+
+
+=====================
+
+
+Direction Manager - Check out how the direction is changed at runtime and how a singleton class( DirectionManager.cs) will reuse direction objects without creating them all the time.
+
+
+And no one can escape business rules. Here it is like:
+If you are facing Direction X then Direction Y is to your left and Direction Z is towards your right!
+
+
+
+
+
+-----------------------
+//DirectionManager.cs
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication2
+{
+    class DirectionManager
+    {
+        private static DirectionManager instance;
+
+        private static IDirection north;
+        private static IDirection south;
+        private static IDirection east;
+        private static IDirection west;
+        
+
+
+        private DirectionManager()
+        {
+        }
+
+       public static DirectionManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+
+                    instance = new DirectionManager();
+                }
+                return DirectionManager.instance;
+            }
+           
+        }
+
+
+       public static IDirection GetDirection(string direction)
+       {
+           IDirection _direction = null; 
+
+           if (direction.Equals("North"))
+           {
+               if (north == null)
+               {
+
+                   north = new North();                   
+               }
+
+               _direction = north;
+           }
+           else if (direction.Equals("South"))
+           {
+
+               if (south == null)
+               {
+
+                   south = new South();
+               }
+
+               _direction = south;
+
+           }
+
+           else if (direction.Equals("East"))
+           {
+               if (east == null)
+               {
+
+                   east = new East();
+               }
+
+               _direction = east;
+           }
+
+           else if (direction.Equals("West"))
+           {
+               if (west == null)
+               {
+
+                   west = new West();
+               }
+
+               _direction = west;
+           }
+
+           return _direction;
+       } 
+
+    }
+}
+
+
+
+=============================
+
+//Coordinate.cs
+--------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication2
+{
+    public class Coordinate
+    {
+
+        public Coordinate()
+        {
+        }
+
+        public Coordinate(int a, int b)
+        {
+            x = a;
+            y = b;
+        }
+
+        
+        int x = 0;
+        int y = 0;
+        
+        public int X
+        {
+            get { return x; }
+            set { 
+                x = (value<0)? 0 : value; }
+        }
+        
+
+        public int Y
+        {
+            get { return y; }
+            set { y = (value < 0) ? 0 : value; }
+        }
+    }
+}
+
+
+
+============================
+
+
+
+
+//Client - Program.cs
+-----------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter Commands like MMLMMRMML");
+            string input = Console.ReadLine();
+            IDirection d = new North();
+
+
+            Rover r = new Rover();
+            
+            
+
+                r.Actuator(input);
+                Console.ReadLine();
+            
+
+        }
+    }
+}
+
+
+
+
+
+=========================

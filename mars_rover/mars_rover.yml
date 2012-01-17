@@ -1,0 +1,23 @@
+plateau_grid:
+  max_x: 5
+  max_y: 5
+
+first_rover:
+  x: 1
+  y: 2
+  direction: N
+  move_commands: LMLMLMLMM
+  final:
+    x: 1
+    y: 3
+    direction: N
+
+second_rover:
+  x: 3
+  y: 3
+  direction: E
+  move_commands: MMRMMRMRRM
+  final:
+    x: 5
+    y: 1
+    direction: E

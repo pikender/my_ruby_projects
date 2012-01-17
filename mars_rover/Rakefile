@@ -1,0 +1,9 @@
+require 'rubygems'
+require 'rspec/core/rake_task'
+
+Rspec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = ['--color', '--format documentation']
+end
+
+desc 'Deafult will run all build specs'
+task :default => :spec
