@@ -1,0 +1,24 @@
+3X3 Format will be string of 9 letters representing rows in groups of 3.
+
+First 3 letters as first row, next 3 letters will be second row and so on.
+
+Letters can be X, O or -
+
+X : Player X positions
+O : Player O positions
+- : Blank Positions
+
+Algo : 
+1. Scan through string if any '-' present say continue playing
+2. Else check for straight, diagonal X or O positions
+3. If found, declare the winner else stalemate
+4. Throw error if for both X and O positions make diagonal or straight
+5. Ask for player to begin
+6. Only when 5 moves are done, you can declare the winner
+7. While testing and generating permutations, No. of X's = No. of O's or differ by 1 as the turns are alternate.
+
+Bundler Tip
+If already installed gems are to be used, then comment the source 'http://rubygems.org'
+
+Few Other Observations
+Escape () in specs like in mesaage matching
