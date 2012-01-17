@@ -1,0 +1,63 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Running the Program on Console
+
+Program should be invoked as
+     ruby game_of_life.rb <GRID PATTERN>
+
+e.g. ruby game_of_life.rb toad_pattern
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Installing Dependencies
+
+1. Rspec and YAML are the only dependencies.
+2. YAML comes packaged with ruby so no worries.
+3. For Rspec, Gemfile is included specifying rspec.
+4. Make sure you have bundler installed, if not install with
+    gem install bundler
+5. Navigate to game_of_life folder and run 
+    bundle install
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+For Running TESTS using rspec, there is a rake task 
+  rake spec
+
+which runs all the tests
+
+** Dependency on Rspec is mentioned in Gemfile, bundler can be used to install the same as gem
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Input Parsing and Representation is done using YAML
+
+Path to file is lib/yaml_grids/grid.yml
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+1. Inputs are actually co-ordinates in 2-dimensional space
+
+2. Add input in a .csv or .yml file
+
+3. Read co-ordinates and create a grid
+
+4. Apply Rules and generate a new universe
+
+5. Looks simple Huh !!
+
+**6. Add debug.log for debugging/logging - Not implemented
+
+i. grid.yml has all the supported patterns with input and output after one tick.
+ii. Ask user to supply ONE known pattern to check the grid layout after one tick.
+iii. Only allow ONE known patterns to come as input as of now.
+iv. Extra Grid Patterns can be added in grid.yml as reference to other formats.
+v. YAML library of Ruby is used to parse the grid.yml
+
+Program Execution Flow:
+1. After taking care of steps from i. to v.
+2. Generate a Grid by properly initializing the cells as per grid input.
+3. Create a Ticker to apply Rules to the Grid.
+4. Add Rules to Ticker.
+5. Apply Rules to Grid by calling tick and returning new Grid after application of Rules.
+6. Display the Initial and New Grid.
+
