@@ -1,0 +1,328 @@
+Urgent
+1. Add rspec to Gemfile
+2. Add rspec rake task in Rakefile
+3. Create gol_helper.rb
+4. Move all require statements from gol.rb from gol_helper.rb
+5. require 'gol_helper.rb' in gol.rb
+6. Fire up a irb session with irb -r gol_helper.rb
+7. All the classes and methods are available in IRB session :)
+8. To add Rspec Tests for a module, use shared_examples
+Implemented in: subject_spec.rb
+9. Put files containing shared examples in spec/support/ and require files in that directory from spec/spec_helper.rb:
+Dir["./spec/support/**/*.rb"].each {|f| require f}
+This is included in the generated spec/spec_helper.rb file in rspec-rails
+10. described_class helps getting reference to class(module is included).
+let(:observed) {described_class.new}
+Implemented in: subject_spec.rb
+11. Passing shared instance from class(module is included). Use same name in shared examples :)
+  it_should_behave_like "a observed" do 
+    let(:observer_instances) {[GameofLifeUi.new, GameofLifeUi.new, GameofLifeUi.new]}
+  end
+Implemented in: game_of_life_spec.rb
+12. require 'shared_examples_file' in spec of class(module is included)
+Implemented in: game_of_life_spec.rb
+13. Use double, stub, stub_with_chain where In a class, behavior can only be tested with other objects interaction. Provide stub methods instead of initializing class objects and referencing them.
+Implemented in: composite_command_spec.rb
+14. Fix Rspec rake task error caused due to inclusion of support files in rspec command :(
+Note: Dont append files in support with _spec.rb
+
+TODO
+1. Refactoring is needed for explosive patterns :P .. Grid need to be increased
+2. Just Adding Quick Fix to add dead neighbours for live cells only. Might tackle TODO #1
+3. Check whether can be moved as part of initialization
+    def count_alive_neighbours(game_of_life, cell)
+4. Override each function for GameofLife to iterate over cells
+5. Add methods to check Alive and Dead Neighbour :: Done in Cell
+6. Eliminating accept from LifeVisitor
+  def visit(cmds, game_of_life, cell)
+#    self.send( "visit_#{cell.class.name}".to_sym, object )
+  end
+7. Redundant Command .. added just for clarity ,, A Proc can be passed to inform Survival
+   in LifeVisitor::visitAliveCell 
+   cmds.add_command(LiveCommand.new(cell))
+8. Use of Singleton Ruby Standard Library module in AliveState, DeadState
+9. Use of Vistable my own module in Cell, AliveState, DeadState
+10. Use of Observable Ruby Standard Library module in GameofLife to update associated UI if any or otherwise
+11. Use of Standard Ruby delegate methods in Cell to AliveState, DeadState
+12. Generic description method of Command Class changed to inform in Context of Problem
+    @commands.each {|cmd| description += cmd.description + "\n"}
+                              AS
+    @commands.each {|cmd| description += "#{cmd.cell.to_debug} #{cmd.description}\n"}
+13. Use of super to call parent class initialize
+    super("Command to Die") ## Call to Parent Class Initializer with fixed argument as per Class
+    super() ## Call to Parent Class Initializer with no arguments
+#    super  ## Call to Parent Class Initializer with same arguments
+
+Best Practise I felt
+1. Include to_debug and to_s methods in all classes to facilitate Debugging
+2. Lot of if statements in code is an indicator for extra classes or methods as appropriate
+
+
+UML Basic Notations
+http://www.tutorialspoint.com/uml/uml_basic_notations.htm
+
+Observer Pattern
+* Notifications after consistent state .. subject.changes_complete! (Trigger update)
+* What happens if you update an observer with the news that Fred has gotten a raise, and that observer responds by raising an exception? Do you simply log the exception and soldier on, or do you do something more drastic?
+* E.g. ActiveRecord::Observer
+
+State Pattern AND Singleton Pattern
+* Parent Class defining interface methods
+* Sub Classes implementing the states and interfaces
+* Mainly States are singletons
+* Applications of State Pattern may not be relevant in Game of Life Example as cells present in GameofLife Grid are Alive and other Dead. However, it will provide an example to master State Pattern and will be suitable fit when states are more than two
+
+Command Pattern
+* Parent Class defining interface methods
+* Composite Class to help aggregate commands
+* Decisions without altering the current [object] structure
+
+Visitor Pattern
+* Vistor Class defining different operations
+* Calling of appropriate visit function from Concrete Element Classes
+* However, Ruby has another mechanism that can make the Visitor pattern unnecessary -- open class definitions. In Ruby it ispossible to add new features to a class without changing the original definition. Just define new methods within a class statement foran existing class name.
+* There are a few problems with the above system:
+  * Clobbers the namespace of the class for each visitor you define for the nodes
+  * Provides no method for providing default action without losing the ability to target visitors by inheritance trees
+  * It's not possible to subclass a visitor class to change a small part of functionality
+* Here to utilise Visitor Pattern, dead cells need to be initialized in Maze/Grid Else * TBD -  How to Use*
+
+* Here as the Grid/Maze is infinite, we are storing only live cells in grid so while checking for number of neighbours, we need to create Neighbor Objects to check No.of live and dead neighbours.
+* In Games where Maze is already defined, we have all the objects presen in Grid so we can directly inspect the state by co-ordinates
+* To make it behave similar as fixed Maze Problems, we will create neighboring objects as cells are included in Maze
+
+Markup
+
+Comment blocks can be written fairly naturally.
+
+Paragraphs are lines that share the left margin. Text indented past this margin are formatted verbatim.
+
+    Lists are typed as indented paragraphs with:
+        a '*' or '-' (for bullet lists)
+        a digit followed by a period for numbered lists
+
+    For example, the input that produced the above paragraph looked like
+
+        1. Lists are typed as indented
+           paragraphs with:
+           * a '*' or '-' (for bullet lists)
+           * a digit followed by a period for
+             numbered lists
+
+    Labeled lists (sometimes called description lists) are typed using square brackets for the label.
+
+       [cat]   small domestic animal
+       [+cat+] command to copy standard input
+
+    Labeled lists may also be produced by putting a double colon after the label. This sets the result in tabular form, so the descriptions all line up. This was used to create the 'author' block at the bottom of this description.
+
+       cat::   small domestic animal
+       +cat+:: command to copy standard input
+
+    For both kinds of labeled lists, if the body text starts on the same line as the label, then the start of that text determines the block indent for the rest of the body. The text may also start on the line following the label, indented from the start of the label. This is often preferable if the label is long. Both the following are valid labeled list entries:
+
+       <tt>--output</tt> <i>name [, name]</i>::
+           specify the name of one or more output files. If multiple
+           files are present, the first is used as the index.
+
+       <tt>--quiet:</tt>:: do not output the names, sizes, byte counts,
+                           index areas, or bit ratios of units as
+                           they are processed.
+
+    Headings are entered using equals signs
+
+       = Level One Heading
+       == Level Two Heading
+
+    and so on
+    Rules (horizontal lines) are entered using three or more hyphens.
+    Non-verbatim text can be marked up:
+    italic:	word or <em>text</em>
+    bold:	word or <b>text</b>
+    typewriter:	word or <tt>text</tt>
+
+    The first form only words around 'words', where a word is a sequence of upper and lower case letters and underscores. Putting a backslash before inline markup stops it being interpreted, which is how I created the table above:
+
+      _italic_::     \_word_ or \<em>text</em>
+      *bold*::       \*word* or \<b>text</b>
+      +typewriter+:: \+word+ or \<tt>text</tt>
+
+    Names of classes, source files, and any method names containing an underscore or preceded by a hash character are automatically hyperlinked from comment text to their description.
+    Hyperlinks to the web starting http:, mailto:, ftp:, or www. are recognized. An HTTP url that references an external image file is converted into an inline <IMG..>. Hyperlinks starting 'link:' are assumed to refer to local files whose path is relative to the --op directory.
+
+    Hyperlinks can also be of the form label[url], in which case the label is used in the displayed text, and url is used as the target.
+    Method parameter lists are extracted and displayed with the method description. If a method calls yield, then the parameters passed to yield will also be displayed:
+
+       def fred
+         ...
+         yield line, address
+
+    This will get documented as
+
+       fred() { |line, address| ... }
+
+    You can override this using a comment containing ':yields: ...' immediately after the method definition
+
+       def fred      # :yields: index, position
+         ...
+         yield line, address
+
+    which will get documented as
+
+        fred() { |index, position| ... }
+
+    ':yields:' is an example of a documentation modifier. These appear immediately after the start of the document element they are modifying. Other modifiers include
+
+    :nodoc:[all]
+        don't include this element in the documentation. For classes and modules, methods, aliases, and attributes directly within the affected class will also be omitted. By default, though, modules and classes within that class of module will be documented. This is turned off by adding the all modifier.
+
+             module SM  #:nodoc:
+               class Input
+               end
+             end
+             module Markup #:nodoc: all
+               class Output
+               end
+             end
+
+        In the above code, only class SM::Input will be documented.
+    :doc:
+        force a method to be documented even if it wouldn't otherwise be. Useful is, for example, you want to include documentation of a particular private method. 
+    :notnew:
+        only applicable to the initialize instance method. Normally RDoc assumes that the documentation and parameters for initialize are actually for the ::new method, and so fakes out a ::new for the class. THe :notnew: modifier stops this. Remember that initialize is protected, so you won't see the documentation unless you use the -a command line option. 
+
+    RDoc stops processing comments if it finds a comment line containing '#--'. This can be used to separate external from internal comments, or to stop a comment being associated with a method, class, or module. Commenting can be turned back on with a line that starts '#++'.
+
+        # Extract the age and calculate the
+        # date-of-birth.
+        #--
+        # FIXME: fails if the birthday falls on
+        # February 29th
+        #++
+        # The DOB is returned as a Time object.
+
+        def get_dob(person)
+           ...
+
+    Comment blocks can contain other directives:
+
+    :include:filename
+        include the contents of the named file at this point. The file will be searched for in the directories listed by the --include option, or in the current directory by default. The contents of the file will be shifted to have the same indentation as the ':' at the start of the :include: directive. 
+    :title:text
+        Sets the title for the document. Equivalent to the --title command line parameter. (The command line parameter overrides any :title: directive in the source). 
+    :main:name
+        Equivalent to the --main command line parameter. 
+
+
+
+#############DANGEROUS BUG ######################
+http://www.ruby-forum.com/topic/141223
+#    Dangerours ++ See README for LOG
+#    two_d_display_a = Array.new(x_width,Array.new(y_width))
+
+#      if cell.isAlive?   
+#        p cell.to_debug 
+#        Below Assignment Not Working .. God know Why    
+#        two_d_display_a[cell.row][cell.col] = "A"
+#      else
+#        two_d_display_a[cell.row][cell.col] = "-"  
+#      end
+
+#    Dangerours ++ See README for LOG
+ubuntu@ubuntu-VirtualBox:~/Projects/TW Problem/gol$ ruby gol.rb block_pattern
+Congratulations. You obeyed the program and program allows you to play in return. Hurray !!
+=========GRID CORDINATES IN YAML=========
+1, 1
+1, 2
+2, 1
+2, 2
+=======END GRID CORDINATES IN YAML=======
+
+=======INITIALIZE DEAD CELLS===========
+DEBUG - Already present in grid #<Cell:0xb7669d94 @live_neighbours=0, @row=1, @cell_state=Cell is Dead, @dead_neighbours=0, @col=1>
+DEBUG - Already present in grid #<Cell:0xb7669d1c @live_neighbours=0, @row=1, @cell_state=Cell is Dead, @dead_neighbours=0, @col=2>
+DEBUG - Already present in grid #<Cell:0xb7669ccc @live_neighbours=0, @row=2, @cell_state=Cell is Dead, @dead_neighbours=0, @col=1>
+DEBUG - Already present in grid #<Cell:0xb7669a10 @live_neighbours=0, @row=2, @cell_state=Cell is Dead, @dead_neighbours=0, @col=2>
+=======END INITIALIZE DEAD CELLS=======
+
+=========MAZE INITIAL DISPLAY=========
+"Cell: 1, 1, true"
+"X"
+[[nil, "X", nil, nil], [nil, "X", nil, nil], [nil, "X", nil, nil], [nil, "X", nil, nil]]
+"Cell: 1, 2, true"
+"X"
+[[nil, "X", "X", nil], [nil, "X", "X", nil], [nil, "X", "X", nil], [nil, "X", "X", nil]]
+"Cell: 2, 1, true"
+"X"
+[[nil, "X", "X", nil], [nil, "X", "X", nil], [nil, "X", "X", nil], [nil, "X", "X", nil]]
+"Cell: 2, 2, true"
+"X"
+[[nil, "X", "X", nil], [nil, "X", "X", nil], [nil, "X", "X", nil], [nil, "X", "X", nil]]
+"Cell: 0, 0, false"
+"-"
+[["-", "X", "X", nil], ["-", "X", "X", nil], ["-", "X", "X", nil], ["-", "X", "X", nil]]
+"Cell: 0, 1, false"
+"-"
+[["-", "-", "X", nil], ["-", "-", "X", nil], ["-", "-", "X", nil], ["-", "-", "X", nil]]
+"Cell: 0, 2, false"
+"-"
+[["-", "-", "-", nil], ["-", "-", "-", nil], ["-", "-", "-", nil], ["-", "-", "-", nil]]
+"Cell: 0, 3, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 1, 0, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 1, 3, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 2, 0, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 2, 3, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 3, 0, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 3, 1, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 3, 2, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+"Cell: 3, 3, false"
+"-"
+[["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"], ["-", "-", "-", "-"]]
+- 	- 	- 	- 	
+- 	- 	- 	- 	
+- 	- 	- 	- 	
+- 	- 	- 	- 	
+=======END MAZE INITIAL DISPLAY=======
+#############DANGEROUS BUG ######################
+
+####Rspec Error
+Because of inlcusion of ./spec/support/subject_spec.rb ./spec/support/subject_wih_block_spec.rb ./spec/support/visitor_spec.rb in rspec command the error :(
+
+ubuntu@ubuntu-VirtualBox:~/Projects/TW Problem/gol$ /home/ubuntu/.rvm/rubies/ruby-1.8.7-p334/bin/ruby -S rspec --colour --format documentation ./spec/cell_state_spec.rb ./spec/composite_command_spec.rb ./spec/game_of_life_spec.rb ./spec/command_spec.rb ./spec/live_command_spec.rb ./spec/dead_state_spec.rb ./spec/life_visitor_spec.rb ./spec/life_command_spec.rb ./spec/alive_state_spec.rb ./spec/die_command_spec.rb ./spec/cell_spec.rb ./spec/support/subject_spec.rb ./spec/support/subject_wih_block_spec.rb ./spec/support/visitor_spec.rb
+"./spec/support/subject_spec.rb"
+"./spec/support/subject_wih_block_spec.rb"
+"./spec/support/visitor_spec.rb"
+/home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/example_group.rb:108:in `find_shared': Could not find shared examples "my observed" (ArgumentError)
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/example_group.rb:74:in `it_should_behave_like'
+	from /home/ubuntu/Projects/TW Problem/gol/spec/game_of_life_spec.rb:5
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/example_group.rb:154:in `module_eval'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/example_group.rb:154:in `subclass'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/example_group.rb:141:in `describe'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/dsl.rb:5:in `describe'
+	from /home/ubuntu/Projects/TW Problem/gol/spec/game_of_life_spec.rb:3
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/configuration.rb:459:in `load'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/configuration.rb:459:in `load_spec_files'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/configuration.rb:459:in `map'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/configuration.rb:459:in `load_spec_files'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/command_line.rb:18:in `run'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/runner.rb:80:in `run_in_process'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/runner.rb:69:in `run'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/gems/rspec-core-2.7.1/lib/rspec/core/runner.rb:10:in `autorun'
+	from /home/ubuntu/.rvm/gems/ruby-1.8.7-p334@rails3/bin/rspec:19
+########################################################################

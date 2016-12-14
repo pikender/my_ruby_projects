@@ -1,0 +1,42 @@
+block_pattern:
+  input:
+  X X
+  X X    
+
+  output:
+  X X
+  X X      
+    
+
+boat_pattern:
+  input:
+  - X X
+  X - X
+  - X -
+  output:
+  - X X
+  X - X
+  - X -
+    
+blinker_pattern:
+  input:
+  - - -
+  X X X
+      
+  output:
+  - X
+  - X
+  - X
+        
+
+toad_pattern:
+  input:
+  - - - - -
+  - X X X -
+  - - X X X
+
+  output:
+  - - X - -
+  - X - - X
+  - X - - X
+  - - - X -
