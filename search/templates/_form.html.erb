@@ -1,0 +1,28 @@
+<%% search_header ||= "Search #{class_name.pluralize.titleize}"
+   search_params ||= params[:and_conditions] if !params[:and_conditions].blank?
+   search_msg ||=''
+%>
+<%%unless search_msg.blank?%>
+  <div class = "search_msg"><%%= search_msg %></div>
+<%%end%>
+<div class="search_box">
+  <div class="search_header"><h1><%%= search_header %></h1></div>
+  <%%=  form_tag search_path ,:method => :get, :id => 'search_form' do%>
+    <div class ="cse_error search_errors"><%%= h @error_messages %></div>
+    <%%#  [0,1,2,3,4].each do |i|%>
+    <%%i=0%>
+      <div class ="search_params">
+        <%%= select("and_conditions[#{i}]",'search_by',options_for_select("#{class_name}".constantize.send("ui_search_options") , search_params && search_params["#{i}"] && search_params["#{i}"]["search_by"] ),{:prompt => 'Select filter criteria...'},{:class => 'search_by search_params_select',:rel => i}) %>
+        <%%= select("and_conditions[#{i}]",'search_op',options_for_select("#{class_name}".constantize.send("ui_search_operators"),search_params && search_params["#{i}"]&& search_params["#{i}"]["search_op"] || 'Contains'),{},{:class => 'search_op search_params_select'}) %>
+        <%%= hidden_field_tag "search_op_#{i}",search_params&& search_params["#{i}"]&&search_params["#{i}"]["search_op"]%>
+        <%%= text_field_tag("and_conditions[#{i}][search_value]",search_params&& search_params["#{i}"]&&search_params["#{i}"]["search_value"],:class =>'iText search_value search_params_select', :autocomplete => 'off')%>
+        <%%= hidden_field_tag "search_value_#{i}",search_params && search_params["#{i}"]&&search_params["#{i}"]["search_value"]%>
+      </div>
+    <%%#end%>
+    <div class="search_button">
+      <%%= submit_tag 'Search',{:id => 'search_item', :path => search_path, :class => 'cse_button' } %>
+      <%%= link_to 'Reset', reset_path ,:class => 'button' %>
+    </div>
+
+  <%%end%>
+</div>

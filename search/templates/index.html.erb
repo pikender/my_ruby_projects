@@ -1,0 +1,40 @@
+<%%= render :partial => 'form', :locals => {:class_name => <%= "'#{class_name}'" %>,
+                                                         :search_path =>  <%= index_helper %>_path,
+                                                         :reset_path =>  <%= index_helper %>_path(:from_home_page => true),
+                                                         :search_params => @av_all}%>
+
+<div class="search_box">
+  <%%if !@selected_columns.blank? && !@av_all.blank? %>
+    <div class="search_header"><h1>Results</h1></div>
+    <%% key_cols_val = key_columns %>
+    <table class="set_table"  >
+      <thead>
+        <tr>
+          <%%@selected_columns.each do |column|%>
+            <th><%%= key_cols_val[column.to_sym][:name] %></th>
+          <%%end%>
+        </tr>
+
+      </thead>
+      <tbody>
+        <%%unless @searches.blank? %>
+          <div><h2>Found <%%= @searches.length %></h2></div>
+          <%% @searches.each do |isearch| %>
+            <tr class="<%%= cycle("even", "odd") -%>">
+              <%%@selected_columns.each do |column|%>
+                <%%field = key_cols_val[column.to_sym][:field] %>
+                <%%if field.kind_of?(Array)%>
+                  <td><%%= isearch.send(field.first).try(:send,field.last) %></td>
+                <%%else%>
+                    <td><%%= isearch.send(field) %></td>
+                <%%end%>
+              <%%end%>
+            </tr>
+          <%% end %>
+        <%% else %>
+          <div><h2 style="color:red">No Results Found</h2></div>
+        <%% end %>
+      </tbody>
+    </table>
+  <%%end%>
+</div>

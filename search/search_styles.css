@@ -1,0 +1,127 @@
+/* 
+    Document   : search_styles
+    Created on : Jun 6, 2011, 12:07:40 PM
+    Author     : Pikendra Sharma
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+.search_box{
+  border-bottom:  1px solid #7F7F7F;
+  border-left:  1px solid #7F7F7F;
+  border-right:  1px solid #7F7F7F;
+  margin: 10px auto;
+  width: 56%;
+}
+
+* html .search_box{
+  margin-left: 200px;
+  width: 75%;
+}
+.search_header{
+  height: 33px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.search_header h1{
+  background: none repeat scroll 0 0 #2B8FCB;
+  border-top: 1px solid #7F7F7F;
+  border-bottom:  1px solid #7F7F7F;
+  text-align: center;
+  height: 25px;
+  padding-top: 12px;
+  color: white !important;
+}
+
+* html .search_header h1{
+  margin-top: 0px;
+}
+
+.search_params{
+  text-align: center;
+}
+
+.search_params_select {
+  margin-bottom: 7px;
+  padding: 6px;
+  width: 160px;
+  border: 1px solid #7F7F7F;
+}
+.search_errors {
+  padding-bottom: 3px;
+  padding-left: 23px;
+}
+
+.search_button{
+  margin-left: 385px !important;
+  padding-bottom: 9px;
+}
+
+.set_table {
+  border-top:1px solid #BBBBBB;
+  border-right:1px solid #BBBBBB;
+  border-bottom: 1px solid #BBB;
+  /*  border-collapse:collapse;*/
+  margin-left: 6px;
+
+}
+
+tr.odd {
+	background-color: #E2E4FF;
+}
+
+tr.even {
+	background-color: #E2E4F0;
+}
+
+
+.button {
+  margin: 0.7em 0.5em 0.7em 0;
+  padding: 5px 10px 5px 7px;
+  border: 1px solid #DEDEDE;
+  border-top: 1px solid #EEE;
+  border-left: 1px solid #EEE;
+  background-color: whiteSmoke;
+  font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-size: 100%;
+  line-height: 130%;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-top-left-radius: 5px 5px;
+  border-top-right-radius: 5px 5px;
+  border-bottom-right-radius: 5px 5px;
+  border-bottom-left-radius: 5px 5px;
+  position: relative;
+
+}
+
+.cse_button{
+  background-color: whiteSmoke;
+  border-color: #EEEEEE #DEDEDE #DEDEDE #EEEEEE;
+  border-right: 1px solid #DEDEDE;
+  border-style: solid;
+  border-width: 1px;
+  color: #565656;
+  cursor: pointer;
+  font-family: "Lucida Grande",Tahoma,Arial,Verdana,sans-serif !important;
+  font-size: 100% !important;
+  font-weight: bold !important;
+  padding: 5px !important;
+  border-top-left-radius: 5px 5px;
+  border-top-right-radius: 5px 5px;
+  border-bottom-right-radius: 5px 5px;
+  border-bottom-left-radius: 5px 5px;
+  color: #006699;
+  margin-bottom: 6px;
+
+}
