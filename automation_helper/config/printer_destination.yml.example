@@ -1,0 +1,7 @@
+printers:
+  - ip: 10.0.1.101
+    sn: A0ED013005553
+    sp: false
+  - ip: 10.0.1.102
+    sn: A0ED013005553 
+    sp: true

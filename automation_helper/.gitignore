@@ -1,0 +1,5 @@
+Downloads/*
+chromedriver.log
+log/*
+config/printer_destination.yml
+config/smtp_info.yml

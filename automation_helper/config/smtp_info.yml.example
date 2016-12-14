@@ -1,0 +1,11 @@
+---
+:smtp_server: smtp.gmail.com
+:port: 587
+:helo: gmail.com
+:username: username@gmail.com
+:password: password
+:authentication: :plain
+:from: from@gmail.com
+:to:
+  - first_recepient@gmail.com
+  - second_recepient@gmail.com
