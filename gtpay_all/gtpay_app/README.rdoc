@@ -1,261 +1,477 @@
-== Welcome to Rails
-
-Rails is a web-application framework that includes everything needed to create
-database-backed web applications according to the Model-View-Control pattern.
-
-This pattern splits the view (also called the presentation) into "dumb"
-templates that are primarily responsible for inserting pre-built data in between
-HTML tags. The model contains the "smart" domain objects (such as Account,
-Product, Person, Post) that holds all the business logic and knows how to
-persist themselves to a database. The controller handles the incoming requests
-(such as Save New Account, Update Product, Show Post) by manipulating the model
-and directing data to the view.
-
-In Rails, the model is handled by what's called an object-relational mapping
-layer entitled Active Record. This layer allows you to present the data from
-database rows as objects and embellish these data objects with business logic
-methods. You can read more about Active Record in
-link:files/vendor/rails/activerecord/README.html.
-
-The controller and view are handled by the Action Pack, which handles both
-layers by its two parts: Action View and Action Controller. These two layers
-are bundled in a single package due to their heavy interdependence. This is
-unlike the relationship between the Active Record and Action Pack that is much
-more separate. Each of these packages can be used independently outside of
-Rails. You can read more about Action Pack in
-link:files/vendor/rails/actionpack/README.html.
-
-
-== Getting Started
-
-1. At the command prompt, create a new Rails application:
-       <tt>rails new myapp</tt> (where <tt>myapp</tt> is the application name)
-
-2. Change directory to <tt>myapp</tt> and start the web server:
-       <tt>cd myapp; rails server</tt> (run with --help for options)
-
-3. Go to http://localhost:3000/ and you'll see:
-       "Welcome aboard: You're riding Ruby on Rails!"
-
-4. Follow the guidelines to start developing your application. You can find
-the following resources handy:
-
-* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
-* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
-
-
-== Debugging Rails
-
-Sometimes your application goes wrong. Fortunately there are a lot of tools that
-will help you debug it and get it back on the rails.
-
-First area to check is the application log files. Have "tail -f" commands
-running on the server.log and development.log. Rails will automatically display
-debugging and runtime information to these files. Debugging info will also be
-shown in the browser on requests from 127.0.0.1.
-
-You can also log your own messages directly into the log file from your code
-using the Ruby logger class from inside your controllers. Example:
-
-  class WeblogController < ActionController::Base
-    def destroy
-      @weblog = Weblog.find(params[:id])
-      @weblog.destroy
-      logger.info("#{Time.now} Destroyed Weblog ID ##{@weblog.id}!")
-    end
+Last login: Sun Oct 26 20:01:25 on ttys010
+You have mail.
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay$ rvm2
+Warning! PATH is not properly set up, '/Users/pikender/.rvm/gems/ruby-1.9.2-p290/bin' is not at first place,
+         usually this is caused by shell initialization files - check them for 'PATH=...' entries,
+         it might also help to re-add RVM to your dotfiles: 'rvm get stable --auto-dotfiles',
+         to fix temporarily in this shell session run: 'rvm use ruby-1.9.2-p290'.
+Using /Users/pikender/.rvm/gems/ruby-2.0.0-p451 with gemset dealdey
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay$ cd ../gtpay_app
+-bash: cd: ../gtpay_app: No such file or directory
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay$ cd ..
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday$ rails -v
+Rails 3.2.16
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday$ rails new gtpay_app
+      create  
+      create  README.rdoc
+      create  Rakefile
+      create  config.ru
+      create  .gitignore
+      create  Gemfile
+      create  app
+      create  app/assets/images/rails.png
+      create  app/assets/javascripts/application.js
+      create  app/assets/stylesheets/application.css
+      create  app/controllers/application_controller.rb
+      create  app/helpers/application_helper.rb
+      create  app/mailers
+      create  app/models
+      create  app/views/layouts/application.html.erb
+      create  app/mailers/.gitkeep
+      create  app/models/.gitkeep
+      create  config
+      create  config/routes.rb
+      create  config/application.rb
+      create  config/environment.rb
+      create  config/environments
+      create  config/environments/development.rb
+      create  config/environments/production.rb
+      create  config/environments/test.rb
+      create  config/initializers
+      create  config/initializers/backtrace_silencers.rb
+      create  config/initializers/inflections.rb
+      create  config/initializers/mime_types.rb
+      create  config/initializers/secret_token.rb
+      create  config/initializers/session_store.rb
+      create  config/initializers/wrap_parameters.rb
+      create  config/locales
+      create  config/locales/en.yml
+      create  config/boot.rb
+      create  config/database.yml
+      create  db
+      create  db/seeds.rb
+      create  doc
+      create  doc/README_FOR_APP
+      create  lib
+      create  lib/tasks
+      create  lib/tasks/.gitkeep
+      create  lib/assets
+      create  lib/assets/.gitkeep
+      create  log
+      create  log/.gitkeep
+      create  public
+      create  public/404.html
+      create  public/422.html
+      create  public/500.html
+      create  public/favicon.ico
+      create  public/index.html
+      create  public/robots.txt
+      create  script
+      create  script/rails
+      create  test/fixtures
+      create  test/fixtures/.gitkeep
+      create  test/functional
+      create  test/functional/.gitkeep
+      create  test/integration
+      create  test/integration/.gitkeep
+      create  test/unit
+      create  test/unit/.gitkeep
+      create  test/performance/browsing_test.rb
+      create  test/test_helper.rb
+      create  tmp/cache
+      create  tmp/cache/assets
+      create  vendor/assets/javascripts
+      create  vendor/assets/javascripts/.gitkeep
+      create  vendor/assets/stylesheets
+      create  vendor/assets/stylesheets/.gitkeep
+      create  vendor/plugins
+      create  vendor/plugins/.gitkeep
+         run  bundle install
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/railties-3.2.16/lib/rails/generators/app_base.rb:254: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+^C
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday$ cd gtpay_app/
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ vim Gemfile 
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle install
+Fetching gem metadata from https://rubygems.org/...........
+Resolving dependencies...
+Using rake 10.3.2
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+Installing i18n 0.6.11
+Using multi_json 1.10.1
+Using activesupport 3.2.16
+Using builder 3.0.4
+Using activemodel 3.2.16
+Using erubis 2.7.0
+Using journey 1.0.4
+Using rack 1.4.5
+Using rack-cache 1.2
+Using rack-test 0.6.2
+Using hike 1.2.3
+Using tilt 1.4.1
+Using sprockets 2.2.2
+Using actionpack 3.2.16
+Using mime-types 1.25.1
+Using polyglot 0.3.5
+Using treetop 1.4.15
+Using mail 2.5.4
+Using actionmailer 3.2.16
+Using arel 3.0.3
+Installing tzinfo 0.3.42
+Using activerecord 3.2.16
+Using activeresource 3.2.16
+Using bundler 1.6.1
+Installing execjs 2.2.2
+Using rack-ssl 1.3.4
+Using json 1.8.1
+Using rdoc 3.12.2
+Using thor 0.19.1
+Using railties 3.2.16
+Using jquery-rails 2.2.1
+Using rails 3.2.16
+Installing sass 3.4.6
+Using sass-rails 3.2.6
+Using sqlite3 1.3.7
+Using uglifier 2.1.2
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle install
+Using rake 10.3.2
+Using i18n 0.6.11
+Using multi_json 1.10.1
+Using activesupport 3.2.16
+Using builder 3.0.4
+Using activemodel 3.2.16
+Using erubis 2.7.0
+Using journey 1.0.4
+Using rack 1.4.5
+Using rack-cache 1.2
+Using rack-test 0.6.2
+Using hike 1.2.3
+Using tilt 1.4.1
+Using sprockets 2.2.2
+Using actionpack 3.2.16
+Using mime-types 1.25.1
+Using polyglot 0.3.5
+Using treetop 1.4.15
+Using mail 2.5.4
+Using actionmailer 3.2.16
+Using arel 3.0.3
+Using tzinfo 0.3.42
+Using activerecord 3.2.16
+Using activeresource 3.2.16
+Using execjs 2.2.2
+Using rack-ssl 1.3.4
+Using json 1.8.1
+Using rdoc 3.12.2
+Using thor 0.19.1
+Using railties 3.2.16
+Using jquery-rails 2.2.1
+Using bundler 1.6.1
+Using rails 3.2.16
+Using sass 3.4.6
+Using sass-rails 3.2.6
+Using sqlite3 1.3.7
+Using uglifier 2.1.2
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle install
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+Updating git://github.com/pikender/gtpay.git
+Fetching gem metadata from https://rubygems.org/.........
+Resolving dependencies...
+Using rake 10.3.2
+Using i18n 0.6.11
+Using multi_json 1.10.1
+Using activesupport 3.2.16
+Using builder 3.0.4
+Using activemodel 3.2.16
+Using erubis 2.7.0
+Using journey 1.0.4
+Using rack 1.4.5
+Using rack-cache 1.2
+Using rack-test 0.6.2
+Using hike 1.2.3
+Using tilt 1.4.1
+Using sprockets 2.2.2
+Using actionpack 3.2.16
+Using mime-types 1.25.1
+Using polyglot 0.3.5
+Using treetop 1.4.15
+Using mail 2.5.4
+Using actionmailer 3.2.16
+Using arel 3.0.3
+Using tzinfo 0.3.42
+Using activerecord 3.2.16
+Using activeresource 3.2.16
+Using bundler 1.6.1
+Using execjs 2.2.2
+Using multi_xml 0.5.5
+Using httparty 0.11.0
+Using gtpay 0.0.1 from git://github.com/pikender/gtpay.git (at master)
+Using rack-ssl 1.3.4
+Using json 1.8.1
+Using rdoc 3.12.2
+Using thor 0.19.1
+Using railties 3.2.16
+Using jquery-rails 2.2.1
+Using rails 3.2.16
+Using sass 3.4.6
+Using sass-rails 3.2.6
+Using sqlite3 1.3.7
+Using uglifier 2.1.2
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle install
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+Resolving dependencies...
+Using rake 10.3.2
+Using i18n 0.6.11
+Using multi_json 1.10.1
+Using activesupport 3.2.16
+Using builder 3.0.4
+Using activemodel 3.2.16
+Using erubis 2.7.0
+Using journey 1.0.4
+Using rack 1.4.5
+Using rack-cache 1.2
+Using rack-test 0.6.2
+Using hike 1.2.3
+Using tilt 1.4.1
+Using sprockets 2.2.2
+Using actionpack 3.2.16
+Using mime-types 1.25.1
+Using polyglot 0.3.5
+Using treetop 1.4.15
+Using mail 2.5.4
+Using actionmailer 3.2.16
+Using arel 3.0.3
+Using tzinfo 0.3.42
+Using activerecord 3.2.16
+Using activeresource 3.2.16
+Using bundler 1.6.1
+Using diff-lcs 1.2.4
+Using execjs 2.2.2
+Using multi_xml 0.5.5
+Using httparty 0.11.0
+Using gtpay 0.0.1 from git://github.com/pikender/gtpay.git (at master)
+Using rack-ssl 1.3.4
+Using json 1.8.1
+Using rdoc 3.12.2
+Using thor 0.19.1
+Using railties 3.2.16
+Using jquery-rails 2.2.1
+Using rails 3.2.16
+Using rspec-core 2.13.1
+Using rspec-expectations 2.13.0
+Using rspec-mocks 2.13.1
+Using rspec 2.13.0
+Using rspec-rails 2.13.1
+Using sass 3.4.6
+Using sass-rails 3.2.6
+Using sqlite3 1.3.7
+Using uglifier 2.1.2
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g | grep gtpay
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+  gtpay:controllers
+  gtpay:install
+  gtpay:model
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g gtpay:install
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+ initializer  gtpay.rb
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g gtpay:model
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+      create  app/models/gt_pay_transaction.rb
+      create  db/migrate/20141026184636_create_gtpay_transaction.rb
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g gtpay:controllers
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+      create  app/controllers/gtpay_transactions_controller.rb
+      create  spec/controllers/gtpay_transactions_controller_spec.rb
+      create  app/views/gtpay_transactions
+      create  app/views/gtpay_transactions/auto_submit_gtpay_forms.html.erb
+      create  app/views/gtpay_transactions/create.html.erb
+       route  resources :gtpay_transactions, :only => [:index, :create] do
+  collection do
+    post :callback
   end
+end
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g scaffold_controller home index
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+      create  app/controllers/homes_controller.rb
+      invoke  erb
+      create    app/views/homes
+      create    app/views/homes/index.html.erb
+      create    app/views/homes/edit.html.erb
+      create    app/views/homes/show.html.erb
+      create    app/views/homes/new.html.erb
+      create    app/views/homes/_form.html.erb
+      invoke  test_unit
+      create    test/functional/homes_controller_test.rb
+      invoke  helper
+      create    app/helpers/homes_helper.rb
+      invoke    test_unit
+      create      test/unit/helpers/homes_helper_test.rb
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g model User
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+      invoke  active_record
+      create    db/migrate/20141026190146_create_users.rb
+      create    app/models/user.rb
+      invoke    test_unit
+      create      test/unit/user_test.rb
+      create      test/fixtures/users.yml
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rails g model Order
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+      invoke  active_record
+      create    db/migrate/20141026190208_create_orders.rb
+      create    app/models/order.rb
+      invoke    test_unit
+      create      test/unit/order_test.rb
+      create      test/fixtures/orders.yml
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:migrate
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+==  CreateGtpayTransaction: migrating =========================================
+-- create_table("gt_pay_transactions", {:force=>true})
+   -> 0.0017s
+==  CreateGtpayTransaction: migrated (0.0017s) ================================
 
-The result will be a message in your log file along the lines of:
+==  CreateUsers: migrating ====================================================
+-- create_table(:users)
+   -> 0.0011s
+==  CreateUsers: migrated (0.0011s) ===========================================
 
-  Mon Oct 08 14:22:29 +1000 2007 Destroyed Weblog ID #1!
+==  CreateOrders: migrating ===================================================
+-- create_table(:orders)
+   -> 0.0008s
+==  CreateOrders: migrated (0.0008s) ==========================================
 
-More information on how to use the logger is at http://www.ruby-doc.org/core/
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:seed
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+rake aborted!
+ActiveModel::MassAssignmentSecurity::Error: Can't mass-assign protected attributes: email
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:48:in `process_removed_attributes'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:20:in `debug_protected_attribute_removal'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:12:in `sanitize'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security.rb:230:in `sanitize_for_mass_assignment'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/attribute_assignment.rb:75:in `assign_attributes'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/base.rb:498:in `initialize'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/validations.rb:39:in `new'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/validations.rb:39:in `create!'
+/Users/pikender/Projects/dealday/gtpay_app/db/seeds.rb:10:in `<top (required)>'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `block in load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:236:in `load_dependency'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/railties-3.2.16/lib/rails/engine.rb:525:in `load_seed'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/railties/databases.rake:347:in `block (2 levels) in <top (required)>'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/bin/ruby_executable_hooks:15:in `eval'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/bin/ruby_executable_hooks:15:in `<main>'
+Tasks: TOP => db:seed
+(See full trace by running task with --trace)
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:seed
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:migrate:down VERSION=20141026190208
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+==  CreateOrders: reverting ===================================================
+-- drop_table("orders")
+   -> 0.0014s
+==  CreateOrders: reverted (0.0015s) ==========================================
 
-Also, Ruby documentation can be found at http://www.ruby-lang.org/. There are
-several books available online as well:
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:migrate:up VERSION=20141026190208
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+==  CreateOrders: migrating ===================================================
+-- create_table(:orders)
+   -> 0.0071s
+==  CreateOrders: migrated (0.0072s) ==========================================
 
-* Programming Ruby: http://www.ruby-doc.org/docs/ProgrammingRuby/ (Pickaxe)
-* Learn to Program: http://pine.fm/LearnToProgram/ (a beginners guide)
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:seed
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+rake aborted!
+ActiveModel::MassAssignmentSecurity::Error: Can't mass-assign protected attributes: status, tranx_amount
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:48:in `process_removed_attributes'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:20:in `debug_protected_attribute_removal'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:12:in `sanitize'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security.rb:230:in `sanitize_for_mass_assignment'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/attribute_assignment.rb:75:in `assign_attributes'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/base.rb:498:in `initialize'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/validations.rb:39:in `new'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/validations.rb:39:in `create!'
+/Users/pikender/Projects/dealday/gtpay_app/db/seeds.rb:13:in `<top (required)>'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `block in load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:236:in `load_dependency'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/railties-3.2.16/lib/rails/engine.rb:525:in `load_seed'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/railties/databases.rake:347:in `block (2 levels) in <top (required)>'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/bin/ruby_executable_hooks:15:in `eval'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/bin/ruby_executable_hooks:15:in `<main>'
+Tasks: TOP => db:seed
+(See full trace by running task with --trace)
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:seed
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:migrate:down VERSION=20141026190146
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+==  CreateUsers: reverting ====================================================
+-- drop_table("users")
+   -> 0.0028s
+==  CreateUsers: reverted (0.0029s) ===========================================
 
-These two books will bring you up to speed on the Ruby language and also on
-programming in general.
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:migrate:up VERSION=20141026190146
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+==  CreateUsers: migrating ====================================================
+-- create_table(:users)
+   -> 0.0071s
+==  CreateUsers: migrated (0.0072s) ===========================================
 
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:seed
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+rake aborted!
+ActiveModel::MassAssignmentSecurity::Error: Can't mass-assign protected attributes: name
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:48:in `process_removed_attributes'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:20:in `debug_protected_attribute_removal'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security/sanitizer.rb:12:in `sanitize'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activemodel-3.2.16/lib/active_model/mass_assignment_security.rb:230:in `sanitize_for_mass_assignment'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/attribute_assignment.rb:75:in `assign_attributes'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/base.rb:498:in `initialize'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/validations.rb:39:in `new'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/validations.rb:39:in `create!'
+/Users/pikender/Projects/dealday/gtpay_app/db/seeds.rb:10:in `<top (required)>'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `block in load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:236:in `load_dependency'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activesupport-3.2.16/lib/active_support/dependencies.rb:245:in `load'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/railties-3.2.16/lib/rails/engine.rb:525:in `load_seed'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/gems/activerecord-3.2.16/lib/active_record/railties/databases.rake:347:in `block (2 levels) in <top (required)>'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/bin/ruby_executable_hooks:15:in `eval'
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@dealdey/bin/ruby_executable_hooks:15:in `<main>'
+Tasks: TOP => db:seed
+(See full trace by running task with --trace)
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ bundle exec rake db:seed
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler/runtime.rb:222: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+/Users/pikender/.rvm/gems/ruby-2.0.0-p451@global/gems/bundler-1.6.1/lib/bundler.rb:301: warning: Insecure world writable dir /usr/local in PATH, mode 040777
+pikender@Pikenders-MacBook-Pro:~/Projects/dealday/gtpay_app$ 
 
-== Debugger
-
-Debugger support is available through the debugger command when you start your
-Mongrel or WEBrick server with --debugger. This means that you can break out of
-execution at any point in the code, investigate and change the model, and then,
-resume execution! You need to install ruby-debug to run the server in debugging
-mode. With gems, use <tt>sudo gem install ruby-debug</tt>. Example:
-
-  class WeblogController < ActionController::Base
-    def index
-      @posts = Post.all
-      debugger
-    end
-  end
-
-So the controller will accept the action, run the first line, then present you
-with a IRB prompt in the server window. Here you can do things like:
-
-  >> @posts.inspect
-  => "[#<Post:0x14a6be8
-          @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>,
-       #<Post:0x14a6620
-          @attributes={"title"=>"Rails", "body"=>"Only ten..", "id"=>"2"}>]"
-  >> @posts.first.title = "hello from a debugger"
-  => "hello from a debugger"
-
-...and even better, you can examine how your runtime objects actually work:
-
-  >> f = @posts.first
-  => #<Post:0x13630c4 @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>
-  >> f.
-  Display all 152 possibilities? (y or n)
-
-Finally, when you're ready to resume execution, you can enter "cont".
-
-
-== Console
-
-The console is a Ruby shell, which allows you to interact with your
-application's domain model. Here you'll have all parts of the application
-configured, just like it is when the application is running. You can inspect
-domain models, change values, and save to the database. Starting the script
-without arguments will launch it in the development environment.
-
-To start the console, run <tt>rails console</tt> from the application
-directory.
-
-Options:
-
-* Passing the <tt>-s, --sandbox</tt> argument will rollback any modifications
-  made to the database.
-* Passing an environment name as an argument will load the corresponding
-  environment. Example: <tt>rails console production</tt>.
-
-To reload your controllers and models after launching the console run
-<tt>reload!</tt>
-
-More information about irb can be found at:
-link:http://www.rubycentral.org/pickaxe/irb.html
-
-
-== dbconsole
-
-You can go to the command line of your database directly through <tt>rails
-dbconsole</tt>. You would be connected to the database with the credentials
-defined in database.yml. Starting the script without arguments will connect you
-to the development database. Passing an argument will connect you to a different
-database, like <tt>rails dbconsole production</tt>. Currently works for MySQL,
-PostgreSQL and SQLite 3.
-
-== Description of Contents
-
-The default directory structure of a generated Ruby on Rails application:
-
-  |-- app
-  |   |-- assets
-  |   |   |-- images
-  |   |   |-- javascripts
-  |   |   `-- stylesheets
-  |   |-- controllers
-  |   |-- helpers
-  |   |-- mailers
-  |   |-- models
-  |   `-- views
-  |       `-- layouts
-  |-- config
-  |   |-- environments
-  |   |-- initializers
-  |   `-- locales
-  |-- db
-  |-- doc
-  |-- lib
-  |   |-- assets
-  |   `-- tasks
-  |-- log
-  |-- public
-  |-- script
-  |-- test
-  |   |-- fixtures
-  |   |-- functional
-  |   |-- integration
-  |   |-- performance
-  |   `-- unit
-  |-- tmp
-  |   `-- cache
-  |       `-- assets
-  `-- vendor
-      |-- assets
-      |   |-- javascripts
-      |   `-- stylesheets
-      `-- plugins
-
-app
-  Holds all the code that's specific to this particular application.
-
-app/assets
-  Contains subdirectories for images, stylesheets, and JavaScript files.
-
-app/controllers
-  Holds controllers that should be named like weblogs_controller.rb for
-  automated URL mapping. All controllers should descend from
-  ApplicationController which itself descends from ActionController::Base.
-
-app/models
-  Holds models that should be named like post.rb. Models descend from
-  ActiveRecord::Base by default.
-
-app/views
-  Holds the template files for the view that should be named like
-  weblogs/index.html.erb for the WeblogsController#index action. All views use
-  eRuby syntax by default.
-
-app/views/layouts
-  Holds the template files for layouts to be used with views. This models the
-  common header/footer method of wrapping views. In your views, define a layout
-  using the <tt>layout :default</tt> and create a file named default.html.erb.
-  Inside default.html.erb, call <% yield %> to render the view using this
-  layout.
-
-app/helpers
-  Holds view helpers that should be named like weblogs_helper.rb. These are
-  generated for you automatically when using generators for controllers.
-  Helpers can be used to wrap functionality for your views into methods.
-
-config
-  Configuration files for the Rails environment, the routing map, the database,
-  and other dependencies.
-
-db
-  Contains the database schema in schema.rb. db/migrate contains all the
-  sequence of Migrations for your schema.
-
-doc
-  This directory is where your application documentation will be stored when
-  generated using <tt>rake doc:app</tt>
-
-lib
-  Application specific libraries. Basically, any kind of custom code that
-  doesn't belong under controllers, models, or helpers. This directory is in
-  the load path.
-
-public
-  The directory available for the web server. Also contains the dispatchers and the
-  default HTML files. This should be set as the DOCUMENT_ROOT of your web
-  server.
-
-script
-  Helper scripts for automation and generation.
-
-test
-  Unit and functional tests along with fixtures. When using the rails generate
-  command, template test files will be generated for you and placed in this
-  directory.
-
-vendor
-  External libraries that the application depends on. Also includes the plugins
-  subdirectory. If the app has frozen rails, those gems also go here, under
-  vendor/rails/. This directory is in the load path.
