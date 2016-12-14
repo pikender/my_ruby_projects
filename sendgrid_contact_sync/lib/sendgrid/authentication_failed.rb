@@ -1,0 +1,2 @@
+class Sendgrid::AuthenticationFailed
+end

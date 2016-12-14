@@ -1,0 +1,2 @@
+class Sendgrid::SendgridServerError
+end

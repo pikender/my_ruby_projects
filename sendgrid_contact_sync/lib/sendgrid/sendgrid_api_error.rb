@@ -1,0 +1,2 @@
+class Sendgrid::SendgridApiError
+end
