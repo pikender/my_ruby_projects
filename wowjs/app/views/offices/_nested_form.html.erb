@@ -1,0 +1,4 @@
+<%= f.fields_for :move_ins, MoveIn.new, :child_index => child_index do |fi| %>
+  <%= fi.text_field :name %>
+  <%= link_to "Delete", "#", :class => 'delete' %>
+<% end %> 

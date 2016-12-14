@@ -1,0 +1,13 @@
+<%= form_for Office.new do |f| %>
+  <%= f.text_field :name %>
+  <div id='template' style='display:none;'>
+    <%= render 'nested_form', :f => f, :child_index => 'index_to_replace_with_js' %>
+  </div>
+  <ul class='pool'>
+  </ul>
+  <%= link_to "Add More", "#", :class => 'add_more' %>
+  <%= link_to "Add More thru AJAX", "#", :class => 'add_more_thru_ajax' %>
+  <%= f.submit 'Save', :disable_with => 'Saving...' %>
+<% end %>
+
+<%= link_to 'Back', offices_path %>

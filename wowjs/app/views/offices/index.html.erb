@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>MoveIn(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @offices.each do |o| %>
+      <tr>
+        <td><%= o.name -%></td>
+        <td><%= o.move_ins.collect(&:name).join(',') -%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New', new_office_path %>

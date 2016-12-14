@@ -1,0 +1,3 @@
+<%= form_for Office.new, :url => offices_path, :authenticity_token => false do |f| %>
+  <%= render 'nested_form', :f => f, :child_index => Time.now.to_i %>
+<% end %>
