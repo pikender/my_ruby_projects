@@ -1,0 +1,134 @@
+require "bundler"
+
+$:.push File.expand_path("../lib", __FILE__)
+
+require 'try_gem'
+
+# Setup base, spec and gemspec path
+#Bundler.setup
+
+# Give build, install and release tasks
+#Bundler::GemHelper.install_tasks
+
+desc 'Say'
+task :say do |t|
+  puts "Say"
+  TryGem.new.say
+end
+
+desc 'Check'
+task :check, :dl_pt do |t, args|
+  p args
+  if args[:dl_pt].nil?
+    puts "No Download Path"
+    exit(1)
+  else
+    if File.directory?(args[:dl_pt])
+      p "Wow"
+    else
+      puts "Not a valid directory"
+      exit(1)
+    end
+  end
+  puts "Do It"
+  t = TryGem.new(args[:dl_pt])
+  t.do_it
+end
+
+desc 'Run for multiple#has same problem of not getting preferences updated'
+task :multiple do |t|
+  puts "Multiple"
+  x = '/Users/pikender/Projects/try_gem/downloads'
+  y = ['today', 'yday']
+  2.times do |t|
+    y.each do |z|
+      Rake::Task['check'].reenable
+      Rake::Task['check'].invoke("#{x}/#{z}")
+    end
+  end
+end
+
+desc 'Run Once'
+task :run_once, :dl_pt do |t, args|
+  puts "Run Once"
+  download_path = args[:dl_pt]
+  if download_path.nil?
+    puts "No Download Path"
+    exit(1)
+  else
+    if File.directory?(download_path)
+      p "Wow"
+    else
+      puts "Not a valid directory"
+      exit(1)
+    end
+  end
+  #system({'DOWNLOAD_PATH' => download_path}, './bin/run_once.rb')
+  TryGem.new(download_path).run
+end
+
+desc 'Run Multiple'
+task :run_multiple do |t|
+  puts "Run Multiple"
+  x = '/Users/pikender/Projects/try_gem/downloads'
+  y = ['today', 'yday']
+  2.times do |t|
+    y.each do |z|
+      Rake::Task['run_once'].reenable
+      Rake::Task['run_once'].invoke("#{x}/#{z}")
+    end
+  end
+end
+
+desc 'Run Multiple Collect'
+task :run_multiple_collect do |t|
+  puts "Run Multiple Collect"
+  x = '/Users/pikender/Projects/try_gem/downloads'
+  y = ['today', 'yday']
+  pc = TryCollect.new 
+  pc.add_try TryGem.new("#{x}/#{y.first}")
+  pc.add_try TryGem.new("#{x}/#{y.last}")
+  pc.each do |t|
+    t.run
+  end
+end
+
+desc 'Run Multiple Relative Dir'
+task :run_multiple_rel_dir do |t|
+  puts "Run Multiple Relative Dir"
+  x = 'downloads'
+  y = ['today', 'yday']
+  pc = TryCollect.new 
+  pc.add_try TryGem.new("#{x}/#{y.first}")
+  pc.add_try TryGem.new("#{x}/#{y.last}")
+  pc.each do |t|
+    t.run
+  end
+end
+
+desc 'Run Multiple Relative Dir'
+task :run_multiple_rel_dir_with_exec do |t|
+  puts "Run Multiple Relative Dir"
+  x = 'downloads'
+  y = ['today', 'yday']
+  pc = TryCollect.new
+  pc.add_try TryGem.new("#{x}/#{y.first}")
+  pc.add_try TryGem.new("#{x}/#{y.last}")
+  pc.each do |t|
+    system({'DOWNLOAD_PATH' => t.dp}, 'run_once.rb')
+  end
+end
+
+desc 'Run Multiple With Configuration'
+task :run_multiple_with_conf do |t|
+  puts "Run Multiple With Configuration"
+  x = CustomDirPath.as_download
+  p x
+  y = ['today', 'yday']
+  pc = TryCollect.new
+  pc.add_try TryGem.new("#{x}/#{y.first}")
+  pc.add_try TryGem.new("#{x}/#{y.last}")
+  pc.each do |t|
+    system({'DOWNLOAD_PATH' => t.dp}, 'run_once.rb')
+  end
+end

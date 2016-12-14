@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+# Run rake tasks and cucumber features
+# from my_gem once it's installed.
+#
+# Example:
+#
+#   my_gem rake some-task
+#   my_gem rake some-task[args]
+#   my_gem cucumber feature1 feature2
+#
+# Note: cucumber features have '.feature' appended automatically,
+#       no need for you to do it ;)
+#
+# Author:: N David Brown
+# http://stackoverflow.com/questions/13858495/ruby-accessing-rake-task-from-a-gem-without-rails
+gem_dir = File.expand_path("..", File.dirname(__FILE__))
+puts gem_dir
+$LOAD_PATH.unshift gem_dir# Look in gem directory for resources first.
+exec_type = ARGV[0]
+exec_name = ARGV[1]
+
+if exec_type.nil? || exec_name.nil?
+  puts "Give atleast exec_type and exec_name"
+  exit(1)
+else
+  p exec_type, exec_name
+end
+if exec_type == 'rake' then
+    require 'rake'
+    require 'pp'
+    if defined?(Rails)
+      load File.join(Rails.root, 'Rakefile')
+      p "Rails"
+    else
+      p "No Rails"
+    end
+    pwd=Dir.pwd
+    Dir.chdir(gem_dir) # We'll load rakefile from the gem's dir.
+    Rake.application.init
+    Rake.application.load_rakefile
+    Dir.chdir(pwd) # Revert to original pwd for any path args passed to task.
+    Rake.application.invoke_task(ARGV[1])
+elsif exec_type == 'cucumber' then
+    require 'cucumber'
+    features = ARGV[1,].map{|feature| "#{gem_dir}/features/#{feature}.feature"}.join(' ')
+    runtime = Cucumber::Runtime.new 
+    runtime.load_programming_language('rb') 
+    pwd=Dir.pwd
+    Dir.chdir(gem_dir) # We'll load features from the gem's dir.
+    Cucumber::Cli::Main.new([features]).execute!(runtime)
+    Dir.chdir(pwd) # Revert to original pwd for convenience.
+else
+  puts "Not a supported executable"
+end
