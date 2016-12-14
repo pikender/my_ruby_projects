@@ -1,0 +1,13 @@
+<%%= @msg %>
+<div>
+  <%% unless @failed_contacts.blank? %>
+    <caption><b>Total Failed <%%= @failed_contacts.length %></b></caption>
+    <table>
+      <%% @failed_contacts.each do |fc|%>
+        <tr class="upload_row">
+          <td><%%= fc %></td>
+        </tr>
+      <%% end %>
+    </table>
+  <%% end %>
+</div>

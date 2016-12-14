@@ -1,0 +1,25 @@
+excel_document(:filename => @file_name) do |workbook|
+  format = Spreadsheet::Format.new :weight => :bold
+  required_field_format = Spreadsheet::Format.new :color => :red
+  header_field_format = Spreadsheet::Format.new :weight => :bold
+  index = 0
+  sheet = workbook.create_worksheet
+  sheet.name = @title if !@title.blank?
+  @data[:header].each_with_index do |h,i|
+    sheet.row(0).push( h[:name])
+    if h[:required]
+      sheet.row(0).set_format(i,required_field_format)
+    end
+  end
+
+  unless @data[:body].blank?
+    @data[:body].each_with_index do|o,i|
+      @data[:header].each do |h|
+        sheet.row(i+1).push o[h[:field]]
+        index = i+1
+      end
+    end
+  end
+  sheet.row(0).default_format = header_field_format
+end
+

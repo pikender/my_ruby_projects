@@ -1,0 +1,10 @@
+<b>Step 1.</b> <%%= link_to "Sample Template", download_path %>
+<div id ="import_data">
+  <%%=  form_tag upload_path, :method => :post,:multipart => true, :id => 'import_data_form' do%>
+    Select file
+    <%%= file_field_tag 'datafile', :class => 'import_data' %>
+    <%%=  submit_tag 'Upload' ,:id => 'import_data', :class => 'cse_button'%>
+  <%% end %>
+
+</div>
+
