@@ -1,0 +1,13 @@
+<div class="order-process big-spinner">
+  Please wait while we are processing your request. Please do not press the back button or refresh.
+
+  <%= form_tag gtpay_transactions_path, :id => "gtpay_transaction_form" do %>
+  <% end %>
+
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#gtpay_transaction_form').submit();
+  });
+</script>

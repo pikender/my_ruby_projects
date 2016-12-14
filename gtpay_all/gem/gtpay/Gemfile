@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'rake', '10.3.2'
+gem 'rspec', '2.13.0'
+gem 'sqlite3', '1.3.9'
+gem 'activerecord', '3.2.16'
+gem 'httparty'
+#gem 'shoulda-matchers', '2.6.2'

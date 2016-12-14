@@ -1,0 +1,14 @@
+- Have currency as config or default for transactions
+  - :gtpay_tranx_curr => "566"
+- Making get_response_hash as support function
+  - have similar function which will just help set status, no messages 
+  - set amount in requery as another column 
+- Look for patterns overriding older values with new values
+  - default with actual values
+- Generator for transaction ids
+- Add gtpay_hash method to Gtpay::Transaction
+- Add api_endpoint to Gtpay.configure
+- Correct auto_submit_form to use 
+  - Gtpay::Transaction#gtpay_hash
+  - Gtpay.api_endpoint instead of gtpay_url
+  - transaction.user instead of current_user 

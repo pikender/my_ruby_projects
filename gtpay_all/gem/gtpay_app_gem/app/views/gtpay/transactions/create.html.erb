@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= favicon_link_tag %>
+    <%= javascript_include_tag "jquery" %>
+  </head>
+  <body>
+    <div id="progress_indicator" class="loading-gif" style="font-size: 16px; font-weight: bold; color: #333; "> Please wait while we are processing your request. Please do not press the back button or refresh. </div>
+
+    <div id="pageContent">
+      <div id='gtpay-online-payment-form-container' style='display:none'>
+        <%= form_tag(Gtpay.form_submit_url, :id => 'gtpay-online-payment-form', :onsubmit => "$('#progress_indicator').show();") do -%>
+          <%=hidden_field_tag 'gtpay_mert_id', Gtpay.gtpay_merc_id %>
+          <%=hidden_field_tag "gtpay_tranx_amt", @transaction.gtpay_tranx_amt_in_cents %>
+          <%=hidden_field_tag "gtpay_tranx_curr", @transaction.gtpay_tranx_curr %>
+          <%=hidden_field_tag "gtpay_tranx_noti_url", callback_gtpay_transactions_url %>
+          <%=hidden_field_tag "gtpay_tranx_id", @transaction.gtpay_tranx_id %>
+          <%=hidden_field_tag "gtpay_cust_name", @transaction.user.name %>
+          <%=hidden_field_tag "gtpay_cust_id", @transaction.user.email %>
+          <%=hidden_field_tag "gtpay_tranx_hash", @transaction.gtpay_hash(callback_gtpay_transactions_url) %>
+        <% end %>
+        <% logger.info({
+          gtpay_mert_id: Gtpay.gtpay_merc_id,
+          gtpay_tranx_amt: @transaction.gtpay_tranx_amt_in_cents,
+          gtpay_tranx_id: @transaction.gtpay_tranx_id
+        }) %>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#gtpay-online-payment-form').submit();
+      });
+    </script>
+  </footer>
+</html>
+

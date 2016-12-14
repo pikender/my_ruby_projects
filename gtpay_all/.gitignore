@@ -1,0 +1,29 @@
+# Ignore bundler config
+/gtpay_app/.bundle
+/gem/gtpay_app_gem/.bundle
+/gtpay_app_engine/.bundle
+
+# Ignore the default SQLite database.
+/gtpay_app/db/*.sqlite3
+/gem/gtpay_app_gem/db/*.sqlite3
+/gtpay_app_engine/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/gtpay_app/log/*.log
+/gem/gtpay_app_gem/log/*.log
+/gtpay_app_engine/log/*.log
+
+/gtpay_app/tmp
+/gem/gtpay_app_gem/tmp
+/gtpay_app_engine/tmp
+
+/gtpay_app/config/initializers/gtpay.rb
+/gem/gtpay_app_gem/config/initializers/gtpay.rb
+/gtpay_app_engine/config/initializers/gtpay.rb
+
+/gtpay_app_engine/pkg/
+/gtpay_app_engine/test/dummy/db/*.sqlite3
+/gtpay_app_engine/test/dummy/log/*.log
+/gtpay_app_engine/test/dummy/tmp/
+/gtpay_app_engine/test/dummy/.sass-cache
+/gtpay_app_engine/test/config/initializers/gtpay.rb
